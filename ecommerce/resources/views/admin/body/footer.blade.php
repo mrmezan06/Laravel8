@@ -5,9 +5,9 @@
 			<a class="nav-link" href="javascript:void(0)">FAQ</a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link" href="#">Purchase Now</a>
+			<a class="nav-link" href="https://www.easyshop.com">Easy Shop</a>
 		  </li>
 		</ul>
     </div>
-	  &copy; 2020 <a href="#">Psd to Html Expert</a>. All Rights Reserved.
+	  &copy; 2022 <a href="#">Easy Shop</a>. All Rights Reserved.
   </footer>

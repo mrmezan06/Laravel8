@@ -2,16 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\Backend\AdminProfileController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,8 +27,10 @@ Route::middleware([
 
 /* Logout Route */
 Route::get('/admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
-
-    
+/* Profile Route */
+Route::get('/admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
+Route::get('/admin/profile/edit', [AdminProfileController::class, 'AdminProfileEdit'])->name('admin.profile.edit');
+Route::post('/admin/profile/store', [AdminProfileController::class, 'AdminProfileStore'])->name('admin.profile.store');      
 
 Route::middleware([
     'auth:sanctum,web',
