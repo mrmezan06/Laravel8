@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class AdminProfileController extends Controller
 {
@@ -38,6 +41,50 @@ class AdminProfileController extends Controller
 
         $data->save();
 
+        Session::flash('success', 'You successfully updated the profile.');
+
         return redirect()->route('admin.profile');
     }
+
+    public function AdminChangePassword()
+    {
+        return view('admin.admin_change_password');
+    }
+
+    
+    public function AdminUpdateChangePassword(Request $request)
+    {
+        $validate = $request->validate([
+            'oldpassword' => 'required',
+            'password' => 'required'
+        ]);
+
+        $hashedPassword = Admin::find(1)->password;
+        
+            if($request->password_confirmation != $request->password)
+            {
+                Session::flash('warning', 'New Password and Confirm Password Must be same.');
+                return redirect()->back();
+            }
+
+        if(hash::check($request->oldpassword, $hashedPassword))
+        {
+                $admin = Admin::find(1);
+                $admin->password = Hash::make($request->password);
+                $admin->save();
+                Session::flash('success', 'You successfully updated the password.');
+                return redirect()->route('admin.profile');
+           
+        }else
+        {
+            Session::flash('error', 'Wrong Password! Please Check Your Old Password.');
+            return redirect()->back();
+        }
+
+
+        
+
+        
+    }
 }
+
